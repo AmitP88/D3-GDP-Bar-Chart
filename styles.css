@@ -13,3 +13,10 @@ body {
     -moz-box-shadow: 10px 10px 11px -4px rgba(0,0,0,0.68);
     box-shadow: 10px 10px 11px -4px rgba(0,0,0,0.68);
 }
+
+h1 {
+    text-align: center;
+    padding-top: 3%;
+    font-family: monospace;
+    font-size: -webkit-xxx-large;
+}

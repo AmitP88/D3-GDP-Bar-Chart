@@ -42,16 +42,19 @@ const getData = () => {
            .attr("y", (d) => yScale(d[1]))
            .attr("height", (d) => h - padding - yScale(d[1]))
            .attr("width", 4)
-           .attr("fill", "#0EBFE9");
+           .attr("fill", "#0EBFE9")
+           .attr("class", "bar");
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);
         const yAxis = d3.axisLeft(yScale);
         svg.append("g")
+           .attr("id", "x-axis")
            .attr("transform", "translate(0, " + (h - padding) + ")")
            .call(xAxis);
 
         svg.append("g")
+            .attr("id", "y-axis")
             .attr("transform", "translate(" + 40 + ",0)")
             .call(yAxis);
     }

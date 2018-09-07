@@ -24,7 +24,7 @@ const getData = () => {
         let y_min = d3.min(dataset, (d) => d[1]);
         let y_max = d3.max(dataset, (d) => d[1]);
         const yScale = d3.scaleLinear()
-                      .domain([y_min, y_max])
+                      .domain([0, y_max])
                       .range([h - padding, padding]);
 
         /* Add an SVG Canvas */
@@ -37,7 +37,7 @@ const getData = () => {
            .data(dataset)
            .enter()
            .append("rect")
-           .attr("x", (d) => xScale(new Date(d[0])) - 2.5)
+           .attr("x", (d) => xScale(new Date(d[0])) - 4)
            .attr("y", (d) => yScale(d[1]))
            .attr("height", (d) => h - padding - yScale(d[1]))
            .attr("width", 4)
@@ -51,12 +51,12 @@ const getData = () => {
         const yAxis = d3.axisLeft(yScale);
         svg.append("g")
            .attr("id", "x-axis")
-           .attr("transform", "translate(0, " + (h - padding) + ")")
+           .attr("transform", "translate(-5, " + (h - padding) + ")")
            .call(xAxis);
 
         svg.append("g")
             .attr("id", "y-axis")
-            .attr("transform", "translate(" + 40 + ",0)")
+            .attr("transform", "translate(" + 35 + ",0)")
             .call(yAxis);
     }
 

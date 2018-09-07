@@ -33,7 +33,7 @@ const getData = () => {
                    .attr("width", w)
                    .attr("height", h)
                    .attr("display", "block")
-                   .attr("margin", "auto");
+                   .attr("margin", "none");
 
         /* Add data points to SVG Canvas as bars */
         svg.selectAll("rect")
@@ -48,13 +48,13 @@ const getData = () => {
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);
-        const yAxis = d3.axisRight(yScale);
+        const yAxis = d3.axisLeft(yScale);
         svg.append("g")
            .attr("transform", "translate(0, " + (h - padding) + ")")
            .call(xAxis);
 
         svg.append("g")
-            .attr("transform", "translate(" + (w - padding) + ", " + 0 + ")")
+            .attr("transform", "translate(" + 40 + ",0)")
             .call(yAxis);
     }
 

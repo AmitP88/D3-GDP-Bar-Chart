@@ -17,14 +17,14 @@ const getData = () => {
         let x_min = d3.min(dataset, (d) => d[0]);
         let x_max = d3.max(dataset, (d) => d[0]);
         // console.log('min', min, 'max', max);
-        const xScale = d3.scale.linear()
+        const xScale = d3.scaleLinear()
                       .domain([x_min, x_max])
                       .range([padding, w - padding]);
 
         /* Scale for y-axis */
         let y_min = d3.min(dataset, (d) => d[1]);
         let y_max = d3.max(dataset, (d) => d[1]);
-        const yScale = d3.scale.linear()
+        const yScale = d3.scaleLinear()
                       .domain([y_min, y_max])
                       .range([h - padding, padding]);
 
@@ -44,9 +44,16 @@ const getData = () => {
            .attr("x", (d) => xScale(d[0]))
            .attr("y", (d) => yScale(d[1]));
 
+        /* Added x and y axes to the left and bottom of the svg canvas */
+        const xAxis = d3.axisBottom(xScale);
+        const yAxis = d3.axisLeft(yScale);
+        svg.append("g")
+           .attr("transform", "translate(0, " + (h - padding) + ")")
+           .call(xAxis);
 
-
-
+        svg.append("g")
+            .attr("transform", "translate(0, " + (h - padding) + ")")
+            .call(yAxis);
     }
 
 

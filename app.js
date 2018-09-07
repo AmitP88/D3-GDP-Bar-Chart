@@ -5,19 +5,18 @@ const getData = () => {
     req.onload=()=>{
         json=JSON.parse(req.responseText);
         const dataset = json.data;
-        // console.log(dataset);
         
         const w = 1000;
         const h = 500;
 
         /* Padding between SVG canvas boundary and the plot */
-        const padding = 30;
+        const padding = 40;
 
         /* Scale for x-axis  */
-        let x_min = d3.min(dataset, (d) => d[0]);
-        let x_max = d3.max(dataset, (d) => d[0]);
+        let x_min = d3.min(dataset, (d) => new Date(d[0]));
+        let x_max = d3.max(dataset, (d) => new Date(d[0]));
         // console.log('min', min, 'max', max);
-        const xScale = d3.scaleLinear()
+        const xScale = d3.scaleTime()
                       .domain([x_min, x_max])
                       .range([padding, w - padding]);
 
@@ -41,18 +40,21 @@ const getData = () => {
            .data(dataset)
            .enter()
            .append("rect")
-           .attr("x", (d) => xScale(d[0]))
-           .attr("y", (d) => yScale(d[1]));
+           .attr("x", (d) => xScale(new Date(d[0])))
+           .attr("y", (d) => yScale(d[1]))
+           .attr("height", (d) => h - padding - yScale(d[1]))
+           .attr("width", 3)
+           .attr("fill", "blue");
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);
-        const yAxis = d3.axisLeft(yScale);
+        const yAxis = d3.axisRight(yScale);
         svg.append("g")
            .attr("transform", "translate(0, " + (h - padding) + ")")
            .call(xAxis);
 
         svg.append("g")
-            .attr("transform", "translate(0, " + (h - padding) + ")")
+            .attr("transform", "translate(" + (w - padding) + ", " + 0 + ")")
             .call(yAxis);
     }
 

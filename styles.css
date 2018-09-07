@@ -20,3 +20,13 @@ h1 {
     font-family: monospace;
     font-size: -webkit-xxx-large;
 }
+
+.canvas {
+    width: 90vw;
+    height: 100vh;
+    margin-left: 3%;
+}
+
+.bar:hover {
+    fill: #0099CC;
+}

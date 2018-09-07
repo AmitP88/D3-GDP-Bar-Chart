@@ -37,12 +37,14 @@ const getData = () => {
            .data(dataset)
            .enter()
            .append("rect")
-           .attr("x", (d) => xScale(new Date(d[0])))
+           .attr("x", (d) => xScale(new Date(d[0])) - 2.5)
            .attr("y", (d) => yScale(d[1]))
            .attr("height", (d) => h - padding - yScale(d[1]))
            .attr("width", 4)
            .attr("fill", "#0EBFE9")
-           .attr("class", "bar");
+           .attr("class", "bar")
+           .attr("data-date", (d) => (d[0]))
+           .attr("data-gdp", (d) => (d[1]));
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);

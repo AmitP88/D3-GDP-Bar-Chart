@@ -6,7 +6,7 @@ const getData = () => {
         json=JSON.parse(req.responseText);
         const dataset = json.data;
         
-        const w = 1000;
+        const w = 1250;
         const h = 500;
 
         /* Padding between SVG canvas boundary and the plot */
@@ -31,9 +31,7 @@ const getData = () => {
         const svg = d3.select(".container")
                    .append("svg")
                    .attr("width", w)
-                   .attr("height", h)
-                   .attr("display", "block")
-                   .attr("margin", "none");
+                   .attr("height", h);
 
         /* Add data points to SVG Canvas as bars */
         svg.selectAll("rect")
@@ -43,8 +41,8 @@ const getData = () => {
            .attr("x", (d) => xScale(new Date(d[0])))
            .attr("y", (d) => yScale(d[1]))
            .attr("height", (d) => h - padding - yScale(d[1]))
-           .attr("width", 3)
-           .attr("fill", "blue");
+           .attr("width", 4)
+           .attr("fill", "#0EBFE9");
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);

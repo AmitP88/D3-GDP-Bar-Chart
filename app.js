@@ -5,7 +5,6 @@ const getData = () => {
     req.onload=()=>{
         json=JSON.parse(req.responseText);
         const dataset = json.data;
-        
         const w = 1240;
         const h = 500;
 
@@ -32,6 +31,13 @@ const getData = () => {
                    .append("svg")
                    .attr("class", "canvas");
 
+        // Define the div for the tooltip
+        var div = d3.select(".container")
+                    .append("div")	
+                    .attr("class", "tooltip")
+                    .attr("id", "tooltip")
+                    .style("opacity", 0);
+        
         /* Add data points to SVG Canvas as bars */
         svg.selectAll("rect")
            .data(dataset)
@@ -44,7 +50,22 @@ const getData = () => {
            .attr("fill", "#0EBFE9")
            .attr("class", "bar")
            .attr("data-date", (d) => (d[0]))
-           .attr("data-gdp", (d) => (d[1]));
+           .attr("data-gdp", (d) => (d[1]))
+           .on("mouseover", (d) => {		
+                div.transition()		
+                   .duration(200)		
+                   .style("opacity", .9);
+                
+                div.html(d[0] + "<br/>" + d[1])	
+                   .style("left", (d3.event.pageX) + 10 + "px")		
+                   .style("top", (d3.event.pageY - 28) + "px")
+                   .attr("data-date", d[0]);
+            })					
+        .on("mouseout", function(d) {		
+            div.transition()		
+               .duration(500)		
+               .style("opacity", 0);	
+        });
 
         /* Added x and y axes to the left and bottom of the svg canvas */
         const xAxis = d3.axisBottom(xScale);
@@ -58,6 +79,10 @@ const getData = () => {
             .attr("id", "y-axis")
             .attr("transform", "translate(" + 35 + ",0)")
             .call(yAxis);
+
+
+
+
     }
 
 
